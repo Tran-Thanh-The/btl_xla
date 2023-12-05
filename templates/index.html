@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Processing</title>
+    <style>
+      .images {
+        display: flex;
+        justify-content: flex-start;
+        margin: 20px 0;
+      }
+
+      .image-group {
+        margin: 10px 50px 10px 10px;
+      }
+
+      label,
+      p {
+        font-size: 18px;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      a {
+        text-decoration: none;
+        text-align: center;
+      }
+
+      .btn {
+        color: white;
+        border-radius: 5px;
+        padding: 6px 12px;
+        border: none;
+        font-size: 14px;
+        box-sizing: border-box;
+        margin: 10px 2px;
+        cursor: pointer;
+      }
+
+      .btn-success {
+        background: #008000;
+      }
+
+      .btn-primary {
+        background: #0000ff;
+      }
+
+      .btn-warning {
+        background: #ffc700;
+      }
+
+      .btn-danger {
+        background: #ef1f1f;
+      }
+    </style>
+  </head>
+
+  <body>
+    <form
+      style="margin: 10px"
+      action=""
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <input type="file" name="image" accept="image/*" />
+      <button class="btn btn-primary" type="submit">Upload</button>
+    </form>
+    {% with messages = get_flashed_messages() %} {% if messages %} {% for m in
+    messages %}
+    <p style="margin: 10px 10px 20px">{{m}}</p>
+    {% endfor %} {% endif %} {% endwith %}
+    <a style="margin: 10px" class="btn btn-primary" href="/">Back</a>
+    <br />
+    <div class="images">
+      {% if originalImage %}
+      <div class="image-group">
+        <label for="originalImage">Original Image</label>
+        <br />
+        <img
+          src="data:image/jpeg;base64,{{originalImage}}"
+          alt="Original Image"
+        />
+      </div>
+      {% endif %} {% if processedImage %}
+      <div class="image-group">
+        <label for="processedImage">Processed Image</label>
+        <br />
+        <img
+          src="data:image/jpeg;base64,{{processedImage}}"
+          alt="Processed Image"
+        />
+      </div>
+      {% endif %}
+    </div>
+
+    <script>
+      var currentURL = window.location.href;
+      path = currentURL.substring(21);
+      const form = document.querySelector("form");
+      form.setAttribute("action", path);
+    </script>
+  </body>
+</html>
